@@ -1,0 +1,35 @@
+defaults:
+  - prompt: prompt1
+  - parameters: param1
+  - mode: lab
+  - override hydra/help: config_param_help
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H%M%S}
+  sweep:
+    dir: outputs/${now:%Y-%m-%d}
+    subdir: ${now:%H%M%S}
+    # /${hydra.job.num}
+  sweeper:
+    params:
+      prompt: prompt1
+      parameters: param1
+      mode: glob(*)
+  job_logging:
+    root:
+      handlers: [console, file]
+      level: INFO
+    formatters:
+      simple:
+        format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+        level: DEBUG
+      file:
+        mode: w
+        # filename: ${hydra.runtime.output_dir}/${hydra.job.name}.log
