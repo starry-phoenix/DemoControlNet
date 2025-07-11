@@ -2,6 +2,7 @@
 Demonstrates a simple use-case of a ControlNet application
 
 # Getting started
+In addition to the changes mentioned in the given task related to the repository, add the script files to the project root directory for the application to function.
 
 Install hydra package:
 
